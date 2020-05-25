@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,38 +7,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  button: {
-    backgroundColor: 'red',
-    width: 300,
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 8
+  input: {
+    borderWidth: 1,
+    width: 256,
+    padding: 4,
   }
 });
 
 export default function App() {
+  const [value, setValue] = React.useState('');
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          console.log('TouchableOpacity')
+      <TextInput
+        style={styles.input}
+        value={value}
+        onChangeText={newValue => {
+          setValue(newValue)
         }}
-      >
-        <View style={styles.button}>
-          <Text>TouchableOpacity</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableHighlight
-        disable={true}
-        onPress={() => {
-          console.log('TouchableHighlight')
-        }}
-      >
-        <View style={styles.button}>
-          <Text>TouchableHighlight</Text>
-        </View>
-      </TouchableHighlight>
+      />
     </View>
   );
 }
