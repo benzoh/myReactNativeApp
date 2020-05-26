@@ -1,9 +1,11 @@
 import React from 'react';
-import { StatusBar, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'black'
   },
 });
@@ -11,7 +13,7 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <ActivityIndicator size="large" color="white" />
     </View>
   );
 }
