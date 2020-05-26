@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View, Text } from 'react-native';
+import useControlledComponent from './lib/hooks';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,17 +16,14 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-  const [value, setValue] = React.useState('');
+  const familyName = useControlledComponent('');
+  const personalName = useControlledComponent('');
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        value={value}
-        onChangeText={newValue => {
-          setValue(newValue)
-        }}
-      />
+      <TextInput style={styles.input} {...familyName} />
+      <TextInput style={styles.input} {...personalName} />
+      <Text>{familyName.value} {personalName.value}</Text>
     </View>
   );
 }
