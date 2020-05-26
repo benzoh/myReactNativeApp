@@ -1,19 +1,24 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { Switch, StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black'
   },
 });
 
 export default function App() {
+  const [value, setValue] = React.useState(false);
+
+  function onValueChange(newValue: boolean) {
+    setValue(newValue)
+  };
+
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="white" />
+      <Switch value={value} onValueChange={onValueChange} />
     </View>
   );
 }
