@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { Alert, AppState, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,45 +9,26 @@ const styles = StyleSheet.create({
   }
 });
 
-function useErrorModalDialog(initialErrors: Array<string>) {
-  const [needsToShow, setNeedsToShow] = React.useState(true);
-  const [errors, setErrors] = React.useState(initialErrors);
+export default function App() {
+  const [state, setState] = React.useState<string>(AppState.currentState);
 
-  React.useEffect(() => {
-    if (0 < errors.length && needsToShow) {
-      setNeedsToShow(false);
-      Alert.alert(errors[0], undefined, [
-        {
-          text: 'OK',
-          onPress: () => {
-            console.log({ errors });
-            setErrors(errors.filter((_, index) => index !== 0))
-            setNeedsToShow(true)
-          }
-        }
-      ]);
+  function setAppState(newState: string) {
+    setState(newState)
+    if (newState === 'active') {
+      Alert.alert('active');
     }
-  }, [needsToShow, errors])
-
-  function addError(newError: string) {
-    setErrors([...errors, newError]);
   }
 
-  return addError;
-}
-
-export default function App() {
-  const addError = useErrorModalDialog(['1st', '2nd', '3rd']);
+  React.useEffect(() => {
+    AppState.addEventListener('change', setAppState);
+    return () => {
+      AppState.removeEventListener('change', setAppState);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          addError('new error');
-        }}
-      >
-        <Text>Generate Alert</Text>
-      </TouchableOpacity>
+      <Text>{state}</Text>
     </View>
   );
 }
