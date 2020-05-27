@@ -1,25 +1,53 @@
 import React from 'react';
-import { Switch, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
+    alignItems: 'center'
+  }
 });
 
-export default function App() {
-  const [value, setValue] = React.useState(false);
+function useErrorModalDialog(initialErrors: Array<string>) {
+  const [needsToShow, setNeedsToShow] = React.useState(true);
+  const [errors, setErrors] = React.useState(initialErrors);
 
-  function onValueChange(newValue: boolean) {
-    setValue(newValue)
-  };
+  React.useEffect(() => {
+    if (0 < errors.length && needsToShow) {
+      setNeedsToShow(false);
+      Alert.alert(errors[0], undefined, [
+        {
+          text: 'OK',
+          onPress: () => {
+            console.log({ errors });
+            setErrors(errors.filter((_, index) => index !== 0))
+            setNeedsToShow(true)
+          }
+        }
+      ]);
+    }
+  }, [needsToShow, errors])
+
+  function addError(newError: string) {
+    setErrors([...errors, newError]);
+  }
+
+  return addError;
+}
+
+export default function App() {
+  const addError = useErrorModalDialog(['1st', '2nd', '3rd']);
 
   return (
     <View style={styles.container}>
-      <Switch value={value} onValueChange={onValueChange} />
+      <TouchableOpacity
+        onPress={() => {
+          addError('new error');
+        }}
+      >
+        <Text>Generate Alert</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
