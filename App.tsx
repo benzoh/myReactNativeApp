@@ -1,34 +1,19 @@
 import React from 'react';
-import { Alert, AppState, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
+import { BackHandler, View, Text } from 'react-native';
 
 export default function App() {
-  const [state, setState] = React.useState<string>(AppState.currentState);
-
-  function setAppState(newState: string) {
-    setState(newState)
-    if (newState === 'active') {
-      Alert.alert('active');
-    }
-  }
-
   React.useEffect(() => {
-    AppState.addEventListener('change', setAppState);
+    const BackHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      console.warn('hardware back passed');
+      return true;
+    });
+
     return () => {
-      AppState.removeEventListener('change', setAppState);
-    }
+      BackHandler.remove();
+    };
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>{state}</Text>
-    </View>
+    <View />
   );
 }
