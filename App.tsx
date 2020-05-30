@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, ScaledSize, AppState, Clipboard, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,35 +9,27 @@ const styles = StyleSheet.create({
   }
 });
 
-interface NewSizes {
-  window: ScaledSize;
-  screen: ScaledSize;
-}
-
 export default function App() {
-  const [windowSize, setWindowSize] = React.useState(Dimensions.get('window'));
-  const [screenSize, setScreenSize] = React.useState(Dimensions.get('screen'));
+  const onPress = React.useCallback(async () => {
+    try {
+      const URL = 'https://example.com';
+      const isSupported = await Linking.canOpenURL(URL);
 
-  function setSize(newSizes: NewSizes) {
-    setWindowSize(newSizes.window);
-    setScreenSize(newSizes.screen);
-  }
-
-  React.useEffect(() => {
-    Dimensions.addEventListener('change', setSize);
-    return () => {
-      Dimensions.removeEventListener('change', setSize);
-    };
-  });
+      if (!isSupported) {
+        Alert.alert(`can not handle: ${URL}`);
+        return;
+      }
+      Linking.openURL(URL);
+    } catch (e) {
+      Alert.alert(`unknown error: ${e.message}`);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Text>
-        Window ({windowSize.width}, {windowSize.height})
-      </Text>
-      <Text>
-        Screen ({screenSize.width}, {screenSize.height})
-      </Text>
+      <TouchableOpacity onPress={onPress}>
+        <Text>open link</Text>
+      </TouchableOpacity>
     </View>
   );
 }
