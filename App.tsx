@@ -1,35 +1,27 @@
 import React from 'react';
-import { Alert, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, PermissionsAndroid, View } from 'react-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+async function requestCameraPermission() {
+  try {
+    const isGranted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
+    console.log(isGranted);
+
+    if (isGranted === PermissionsAndroid.RESULTS.GRANTED) {
+      Alert.alert('許可ありがとうございます');
+    } else {
+      Alert.alert('カメラを使うと便利ですよ！');
+    }
+  } catch (err) {
+    console.warn(err);
   }
-});
+}
 
 export default function App() {
-  const onPress = React.useCallback(async () => {
-    try {
-      const URL = 'https://example.com';
-      const isSupported = await Linking.canOpenURL(URL);
-
-      if (!isSupported) {
-        Alert.alert(`can not handle: ${URL}`);
-        return;
-      }
-      Linking.openURL(URL);
-    } catch (e) {
-      Alert.alert(`unknown error: ${e.message}`);
-    }
-  }, []);
+  React.useEffect(() => {
+    requestCameraPermission();
+  });
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={onPress}>
-        <Text>open link</Text>
-      </TouchableOpacity>
-    </View>
+    <View />
   );
 }
