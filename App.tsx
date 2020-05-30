@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppState, Clipboard, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ScaledSize, AppState, Clipboard, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,35 +9,35 @@ const styles = StyleSheet.create({
   }
 });
 
+interface NewSizes {
+  window: ScaledSize;
+  screen: ScaledSize;
+}
+
 export default function App() {
-  const [content, setContent] = React.useState('');
+  const [windowSize, setWindowSize] = React.useState(Dimensions.get('window'));
+  const [screenSize, setScreenSize] = React.useState(Dimensions.get('screen'));
+
+  function setSize(newSizes: NewSizes) {
+    setWindowSize(newSizes.window);
+    setScreenSize(newSizes.screen);
+  }
+
   React.useEffect(() => {
-    function getContentOfClipboard() {
-      Clipboard.getString().then(newContent => {
-        setContent(newContent);
-      });
-    }
-
-    getContentOfClipboard();
-    AppState.addEventListener('change', getContentOfClipboard);
-
+    Dimensions.addEventListener('change', setSize);
     return () => {
-      AppState.removeEventListener('change', getContentOfClipboard);
+      Dimensions.removeEventListener('change', setSize);
     };
-  }, []);
+  });
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          const newContent = 'present!!';
-          Clipboard.setString(newContent);
-          setContent(newContent);
-        }}
-      >
-        <Text>set clipboard</Text>
-      </TouchableOpacity>
-      <Text>{content}</Text>
+      <Text>
+        Window ({windowSize.width}, {windowSize.height})
+      </Text>
+      <Text>
+        Screen ({screenSize.width}, {screenSize.height})
+      </Text>
     </View>
   );
 }
