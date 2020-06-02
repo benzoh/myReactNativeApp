@@ -1018,6 +1018,16 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.1.0.tgz#e42b1bef12d2415411519fd528e64b593b1363dc"
   integrity sha512-W/J0fNYVO01tioHjvYWQ9m6RgndVtbElzYozBq1ZPrHO/iCzlqoySHl4gO/fpCl9QEFjvJfjPgtPMTMlsoq5DQ==
 
+"@react-native-community/progress-bar-android@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/progress-bar-android/-/progress-bar-android-1.0.2.tgz#70fac5bf8ad92f8d8025db0841d1371c78db1e84"
+  integrity sha512-0RJK+y1CWMWios7evoQeYaX9SjaFafAWECAr6fmbaG0ISgsDTTQMswFT1O6+VITdm0GlS5F+q0vfCrPOkDispQ==
+
+"@react-native-community/progress-view@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/progress-view/-/progress-view-1.0.2.tgz#41c5823e2797140d77b07949121cebb65f30e19c"
+  integrity sha512-E5KQ2OQ3ET7ABs4tgE5Byv7nPoUEA9su9/gY6PdyP4rjs+Q9F4Gmma+0pXJV7GIK7oBu0d1eU9fevC6hisRVtQ==
+
 "@types/babel__core@^7.1.0":
   version "7.1.7"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.7.tgz#1dacad8840364a57c98d0dd4855c6dd3752c6b89"

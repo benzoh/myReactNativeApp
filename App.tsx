@@ -1,14 +1,32 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SafeAreaView from 'react-native-safe-area-view';
+import { Text, View, StyleSheet } from 'react-native';
+import { ProgressBar } from '@react-native-community/progress-bar-android';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  wrapper: {
+    width: 256
+  }
+});
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView>
-        <Text>見えやすい文字列</Text>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <View style={styles.container}>
+      <ProgressBar />
+      <View style={styles.wrapper}>
+        <ProgressBar styleAttr="Horizontal" />
+      </View>
+      <View style={styles.wrapper}>
+        <ProgressBar
+          styleAttr="Horizontal"
+          indeterminate={false}
+          progress={0.37}
+        />
+      </View>
+    </View>
   );
 }
