@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, ViewStyle } from 'react-native';
+import { Platform, Text, View, StyleSheet, ViewStyle } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,33 +7,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  myComponent: {
-    width: 256,
-    height: 32
-  }
 });
 
-interface Props {
-  style?: ViewStyle;
-}
+const label = Platform.select({
+  ios: 'iOS',
+  android: 'Android'
+})
 
-function MyComponent(props: Props) {
-  const style = React.useMemo(
-    () => StyleSheet.compose(styles.myComponent, props.style),
-    [props.style],
-  );
-
-  return (
-    <View style={style}>
-      <Text>style指定可能なコンポーネント</Text>
-    </View>
-  )
-}
+const onPress = Platform.select({
+  ios: () => {
+    console.warn(Platform.OS, Platform.Version, Platform.isTV)
+  },
+  android: () => {
+    console.warn(Platform.OS, Platform.Version, Platform.isTV)
+  }
+})
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <MyComponent style={{ backgroundColor: 'red' }} />
+      <Text onPress={onPress}>{label}</Text>
     </View>
   );
 }
