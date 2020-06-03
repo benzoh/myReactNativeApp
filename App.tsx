@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ViewStyle } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,26 +7,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  myComponent: {
+    width: 256,
+    height: 32
+  }
 });
 
-function calculateValueNeedsAlingTime(src: number) {
-  // 実行時間が長い処理
+interface Props {
+  style?: ViewStyle;
+}
+
+function MyComponent(props: Props) {
+  const style = React.useMemo(
+    () => StyleSheet.compose(styles.myComponent, props.style),
+    [props.style],
+  );
+
+  return (
+    <View style={style}>
+      <Text>style指定可能なコンポーネント</Text>
+    </View>
+  )
 }
 
 export default function App() {
-  const [state, setState] = React.useState(true);
-  const update = React.useCallback(
-    () => {
-      setState(!state);
-    },
-    [state],
-  )
-  const value = React.useMemo(() => calculateValueNeedsAlingTime(0xffff), []);
-
   return (
     <View style={styles.container}>
-      <Text onPress={update}>update {state.toString()}</Text>
-      <Text>{value}</Text>
+      <MyComponent style={{ backgroundColor: 'red' }} />
     </View>
   );
 }
