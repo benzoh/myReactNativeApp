@@ -1,5 +1,7 @@
 import React from 'react';
-import { Platform, Text, View, StyleSheet, ViewStyle } from 'react-native';
+import { TouchableOpacity, Platform, Text, View, StyleSheet, ViewStyle } from 'react-native';
+
+import Progress from './Progress';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,26 +9,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  progress: {
+    width: 256,
+  },
+  button: {
+    marginTop: 8
+  }
 });
 
-const label = Platform.select({
-  ios: 'iOS',
-  android: 'Android'
-})
-
-const onPress = Platform.select({
-  ios: () => {
-    console.warn(Platform.OS, Platform.Version, Platform.isTV)
-  },
-  android: () => {
-    console.warn(Platform.OS, Platform.Version, Platform.isTV)
-  }
-})
-
 export default function App() {
+  const [progress, setProgress] = React.useState(Math.random());
+  const updateProgress = React.useCallback(() => {
+    setProgress(Math.random());
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text onPress={onPress}>{label}</Text>
+      <Progress progress={progress} style={styles.progress} color={'red'} />
+      <TouchableOpacity onPress={updateProgress} style={styles.button}>
+        <Text>Update</Text>
+      </TouchableOpacity>
     </View>
   );
 }
