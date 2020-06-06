@@ -1,7 +1,7 @@
 // Progress.ios.tsx
 
 import React from 'react';
-import { ViewStyle, ProgressViewIOS } from 'react-native';
+import { Animated, ViewStyle, StyleSheet } from 'react-native';
 import { ProgressView } from '@react-native-community/progress-view';
 
 interface Props {
@@ -10,10 +10,23 @@ interface Props {
   style: ViewStyle;
 }
 
+const AnimatedProgressView = Animated.createAnimatedComponent(
+  ProgressView,
+);
+
 export default function Progress(props: Props) {
+  const [progress] = React.useState(new Animated.Value(0));
+
+  React.useEffect(() => {
+    Animated.spring(progress, {
+      toValue: props.progress,
+      friction: 4,
+    }).start();
+  }, [props.progress]);
+
   return (
-    <ProgressViewIOS
-      progress={props.progress}
+    <AnimatedProgressView
+      progress={progress}
       style={props.style}
       progressTintColor={props.color}
     />
@@ -21,5 +34,5 @@ export default function Progress(props: Props) {
 }
 
 Progress.defaultProps = {
-  color: '#0a7ffb'
-}
+  color: '#0a7ffb',
+};
