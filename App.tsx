@@ -1,7 +1,5 @@
 import React from 'react';
-import { Animated, Dimensions, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-
-import Progress from './Progress';
+import { Animated, View, StyleSheet, Easing } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,26 +7,48 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  progress: {
-    width: 256
-  },
-  button: {
-    marginTop: 8
+  block: {
+    height: 32
   }
 });
 
 export default function App() {
-  const [progress, setProgress] = React.useState(Math.random());
-  const updateProgress = React.useCallback(() => {
-    setProgress(Math.random());
+  const [width] = React.useState(new Animated.Value(0));
+  const [color] = React.useState(new Animated.Value(0));
+
+  React.useEffect(() => {
+    Animated.parallel([
+      Animated.timing(color, {
+        toValue: 100,
+        duration: 2500
+      }),
+      Animated.sequence([
+        Animated.spring(width, {
+          toValue: 256,
+          friction: 4
+        }),
+        Animated.timing(width, {
+          toValue: 0,
+          duration: 1500,
+          easing: Easing.bounce
+        })
+      ])
+    ]).start(() => {
+      setTimeout(() => {
+        width.setValue(0)
+        color.setValue(0)
+      }, 100)
+    });
   }, []);
+
+  const backgroundColor = color.interpolate({
+    inputRange: [0, 100],
+    outputRange: ['rgb(0, 128, 128)', 'rgb(128, 0, 128)'],
+  });
 
   return (
     <View style={styles.container}>
-      <Progress progress={progress} style={styles.progress} color={'red'} />
-      <TouchableOpacity onPress={updateProgress} style={styles.button}>
-        <Text>Update</Text>
-      </TouchableOpacity>
+      <Animated.View style={[styles.block, { width, backgroundColor }]} />
     </View>
   )
 }
