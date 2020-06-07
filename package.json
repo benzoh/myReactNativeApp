@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "typ-check": "tsc --noEmit",
+    "lint": "eslint index.js $(find src -name '*.ts' -a -not -name '*.d.ts' -o -name '*.tsx')",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "@react-native-community/async-storage": "1.11.0",
