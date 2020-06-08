@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "type-check": "tsc --noEmit",
+    "type-check": "./node_modules/.bin/tsc --noEmit",
     "lint": "eslint index.js $(find src -name '*.ts' -a -not -name '*.d.ts' -o -name '*.tsx')",
     "coverage": "jest --coverage"
   },
