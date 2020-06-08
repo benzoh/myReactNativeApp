@@ -20,17 +20,20 @@ export default function App() {
     Animated.parallel([
       Animated.timing(color, {
         toValue: 100,
-        duration: 2500
+        duration: 2500,
+        useNativeDriver: true
       }),
       Animated.sequence([
         Animated.spring(width, {
           toValue: 256,
-          friction: 4
+          friction: 4,
+          useNativeDriver: true
         }),
         Animated.timing(width, {
           toValue: 0,
           duration: 1500,
-          easing: Easing.bounce
+          easing: Easing.bounce,
+          useNativeDriver: true
         })
       ])
     ]).start(() => {

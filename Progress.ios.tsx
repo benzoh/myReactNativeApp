@@ -21,6 +21,7 @@ export default function Progress(props: Props) {
     Animated.spring(progress, {
       toValue: props.progress,
       friction: 4,
+      useNativeDriver: true
     }).start();
   }, [props.progress]);
 

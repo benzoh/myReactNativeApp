@@ -14,7 +14,7 @@ export default function Progress(props: Props) {
   return (
     <View style={props.style}>
       <ProgressBar
-        sytleAttr="Horizontal"
+        styleAttr="Horizontal"
         progress={props.progress}
         indeterminate={false}
         color={props.color}
