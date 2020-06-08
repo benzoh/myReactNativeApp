@@ -5,7 +5,7 @@ extends:
   - prettier
   - prettier/@typescript-eslint
   - plugin:react/recommended
-  - "@react-native-commumity"
+  - "@react-native-community"
   - plugin:react-native/all
   - plugin:jest/recommended
 parser: "@typescript-eslint/parser"
