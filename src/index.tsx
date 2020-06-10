@@ -55,7 +55,7 @@ function StackNavigator() {
 
 export default function () {
   return (
-    <NavigationContainer>
+    <NavigationContainer onStateChange={(newState) => console.log(newState)}>
       <StackNavigator />
     </NavigationContainer>
   );
