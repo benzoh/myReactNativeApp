@@ -41,7 +41,13 @@ const Stack = createStackNavigator();
 function StackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Main" component={Main} />
+      <Stack.Screen
+        name="Main"
+        component={Main}
+        options={{
+          headerLeft: () => <Text>hoge</Text>,
+        }}
+      />
       <Stack.Screen name="Sub" component={Sub} />
     </Stack.Navigator>
   );
