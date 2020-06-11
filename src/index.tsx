@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { CommonActions } from '@react-navigation/routers';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation, NavigationContainer } from '@react-navigation/native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +21,7 @@ function Main() {
       <TouchableOpacity
         onPress={() => {
           navigate('Sub', {
-            title: 'from Main',
+            title: `${Date.now()}`,
           });
         }}
       >
@@ -42,19 +43,46 @@ const Stack = createStackNavigator();
 
 function StackNavigator() {
   return (
-    <Stack.Navigator
-      screenOptions={({ route }) => ({
-        title: route.params && route.params.title,
-      })}>
+    <Stack.Navigator>
       <Stack.Screen name="Main" component={Main} />
-      <Stack.Screen name="Sub" component={Sub} />
+      <Stack.Screen
+        name="Sub"
+        component={Sub}
+        options={({ navigation, route }) => {
+          const title = route.params && route.params.title ? route.params.title : '0';
+          const seed = parseInt(title, 10) % 3;
+          switch (seed) {
+            case 0:
+              console.log('goback');
+              navigation.goBack();
+              break;
+            case 1:
+              console.log('replace');
+              navigation.replace('Main');
+              break;
+            default:
+              console.log('reset');
+              const action = CommonActions.reset({
+                index: 0,
+                routes: [
+                  {
+                    name: 'Main',
+                  },
+                ],
+              });
+              navigation.dispatch(action);
+              break;
+          }
+          return { title };
+        }}
+      />
     </Stack.Navigator>
   );
 }
 
 export default function () {
   return (
-    <NavigationContainer onStateChange={(newState) => console.log(newState)}>
+    <NavigationContainer>
       <StackNavigator />
     </NavigationContainer>
   );
