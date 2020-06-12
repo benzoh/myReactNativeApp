@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import { createStackNavigator, StackCardInterpolationProps } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -39,11 +40,7 @@ function AuthWithRoutes() {
 
   return (
     <Stack.Navigator initialRouteName={LOADING} headerMode="none" screenOptions={{ cardStyleInterpolator: forFade }}>
-      {uiContext.applicationState !== UiContext.Status.LOADING ? (
-        switchingAuthStatus(uiContext.applicationState)
-      ) : (
-          <Stack.Screen name={LOADING} component={Loading} />
-        )}
+      {uiContext.applicationState !== UiContext.Status.LOADING ? (switchingAuthStatus(uiContext.applicationState)) : (<Stack.Screen name={LOADING} component={Loading} />)}
     </Stack.Navigator>
   );
 }
