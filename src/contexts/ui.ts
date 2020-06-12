@@ -1,3 +1,6 @@
+/* tslint:disable:no-empty */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable prettier/prettier */
 import React from 'react';
 
 export enum Status {
@@ -13,5 +16,5 @@ export function createApplicationInitialState(): Status {
 
 export const Context = React.createContext({
   applicationState: createApplicationInitialState(),
-  setApplicationState: (_: Status) => {},
+  setApplicationState: (_: Status) => { },
 });
