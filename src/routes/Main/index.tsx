@@ -31,8 +31,8 @@ function AuthWithRoutes() {
       {uiContext.applicationState !== UiContext.Status.LOADING ? (
         switchingAuthStatus(uiContext.applicationState)
       ) : (
-          <Stack.Screen name={LOADING} component={Loading} />
-        )}
+        <Stack.Screen name={LOADING} component={Loading} />
+      )}
     </Stack.Navigator>
   );
 }
