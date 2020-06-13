@@ -3,14 +3,15 @@ import React from 'react';
 import { createStackNavigator, StackCardInterpolationProps } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { INITIAL, LOADING, HOME, CHOOSE_LOGIN, STATISTICS, USER_INFO } from '../../constants/path';
-import { Initial, Loading, ChooseLogin } from '../../components/pages';
+import { INITIAL, LOADING, HOME, CHOOSE_LOGIN, STATISTICS, USER_INFO, INPUT } from '../../constants/path';
+import { Initial, Loading, ChooseLogin, Input } from '../../components/pages';
 import Home from './Home';
 import Statistics from './Statistics';
 import UserInfo from './UserInfo';
 import * as UiContext from '../../contexts/ui';
 
 const Stack = createStackNavigator();
+const ModalStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const HomeDrawer = createDrawerNavigator();
 const StatisticsDrawer = createDrawerNavigator();
@@ -38,6 +39,7 @@ function StatisticsWithDrawer() {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getActiveRouteName = (state: any): string => {
   if (!state || !state.routes) {
     return '';
@@ -56,6 +58,7 @@ function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName={HOME}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       screenOptions={(props: any) => {
         const routeName = getActiveRouteName(props.route.state);
 
@@ -70,12 +73,21 @@ function TabRoutes() {
   );
 }
 
+function TabWithModalRoutes() {
+  return (
+    <ModalStack.Navigator mode="modal" headerMode="none">
+      <Stack.Screen name={HOME} component={TabRoutes} />
+      <Stack.Screen name={INPUT} component={Input} />
+    </ModalStack.Navigator>
+  );
+}
+
 function switchingAuthStatus(status: UiContext.Status) {
   switch (status) {
     case UiContext.Status.UN_AUTHORIZED:
       return <Stack.Screen name={CHOOSE_LOGIN} component={ChooseLogin} />;
     case UiContext.Status.AUTHORIZED:
-      return <Stack.Screen name={HOME} component={TabRoutes} />;
+      return <Stack.Screen name={HOME} component={TabWithModalRoutes} />;
     case UiContext.Status.FIRST_OPEN:
     default:
       return <Stack.Screen name={INITIAL} component={Initial} />;
