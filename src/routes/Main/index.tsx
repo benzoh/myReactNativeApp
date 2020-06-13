@@ -71,6 +71,13 @@ function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName={HOME}
+      tabBarOptions={{
+        inactiveTintColor: COLOR.WHITE,
+        activeTintColor: COLOR.PRIMARY,
+        style: {
+          backgroundColor: COLOR.MAIN,
+        },
+      }}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       screenOptions={(props: any) => {
         const routeName = getActiveRouteName(props.route.state);
