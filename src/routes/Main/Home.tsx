@@ -13,7 +13,7 @@ function HomeNavigator() {
         name={HOME}
         component={Home}
         options={{
-          headerLeft: () => <HeaderLeft />
+          headerLeft: () => <HeaderLeft />,
         }}
       />
       <Stack.Screen name={DETAIL} component={Detail} />
