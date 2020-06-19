@@ -20,10 +20,11 @@ interface Props {
   style: ViewStyle | ViewStyle[];
   iconColor?: string;
   size?: number;
+  disabled?: boolean;
 }
 
 export default function IconButton(props: Props) {
-  const { icon, onPress, style, iconColor = COLOR.WHITE, size = 18 } = props;
+  const { icon, onPress, style, iconColor = COLOR.WHITE, size = 18, disabled } = props;
 
   return (
     <PaperIconButton
@@ -32,7 +33,7 @@ export default function IconButton(props: Props) {
       size={size}
       style={[styles.button, style]}
       icon={icon}
-      accessibilityStates="disabled" // FIXME: これどうかなー。
+      accessibilityStates={disabled ? ['disabled'] : undefined}
     />
   );
 }
