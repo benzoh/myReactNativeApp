@@ -237,7 +237,7 @@ PODS:
     - React
   - react-native-progress-view (1.0.2):
     - React
-  - react-native-safe-area-context (3.0.3):
+  - react-native-safe-area-context (3.0.5):
     - React
   - React-RCTActionSheet (0.62.2):
     - React-Core/RCTActionSheetHeaders (= 0.62.2)
@@ -308,6 +308,8 @@ PODS:
     - React
   - RNScreens (2.8.0):
     - React
+  - RNSVG (9.13.3):
+    - React
   - RNVectorIcons (6.6.0):
     - React
   - Yoga (1.14.0)
@@ -369,6 +371,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -452,6 +455,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -485,7 +490,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
   react-native-progress-bar-android: c29ea5291420912640ad4cf4da376548b07878eb
   react-native-progress-view: c9d957c208bb1f07385eb33d1b660ba259ab2520
-  react-native-safe-area-context: 45e98227f3d65b31d384a5d0950aec4bf73a884c
+  react-native-safe-area-context: e768fca90207ee68924b3d0877633f2ce9cc9d68
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
   React-RCTBlob: a332773f0ebc413a0ce85942a55b064471587a71
@@ -501,6 +506,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
   RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
   RNScreens: 62211832af51e0aebcf6e8c36bcf7dd65592f244
+  RNSVG: f6177f8d7c095fada7cfee2e4bb7388ba426064c
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

@@ -1,25 +1,73 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Todos, { Todo, State as TodoState } from '../../organisms/Todos';
+import ProgressPanel, { Statistic } from '../../molecules/ProgressPanel';
 import { DETAIL } from '../../../constants/path';
+import HeaderText from '../../atoms/HeaderText';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  headerTextContainer: {
+    paddingLeft: 20,
+    marginTop: 20,
+    marginBottom: 8,
   },
 });
 
-export default function Statistics() {
-  const { navigate } = useNavigation();
+const props = {
+  statistics: {
+    numofCompleted: 10,
+    numofAll: 25,
+    numofUncompleted: 15,
+    completedRatio: 0.4,
+    uncompletedRatio: 0.6,
+  },
+  histories: [
+    {
+      id: '1',
+      title: 'Todo1',
+      detail: 'Done',
+      isDone: true,
+    },
+    {
+      id: '2',
+      title: 'Todo2',
+      detail: 'Done',
+      isDone: true,
+    },
+  ],
+};
 
+interface Props {
+  statistics: Statistic;
+  histories: TodoState;
+}
+
+// eslint-disable-next-line no-shadow
+function Header(props: Props) {
   return (
-    <View style={styles.container}>
-      <Text>Statistics</Text>
-      <TouchableOpacity onPress={() => navigate(DETAIL)}>
-        <Text>Go to Detail</Text>
-      </TouchableOpacity>
+    <View>
+      <ProgressPanel {...props.statistics} />
+      <View style={styles.headerTextContainer}>
+        <HeaderText text="History" />
+      </View>
     </View>
   );
+}
+
+export default function Statistics() {
+  const { navigate } = useNavigation();
+  const gotoDetail = React.useCallback(
+    (state: Todo.State, isEditable: boolean) => {
+      // eslint-disable-next-line no-console
+      console.log({
+        isEditable,
+      });
+      navigate(DETAIL, { ...state, isEditable });
+    },
+    [navigate],
+  );
+  const actions = React.useMemo(() => ({ gotoDetail }), [gotoDetail]);
+
+  return <Todos isEditable={false} todos={props.histories} actions={actions} header={<Header {...props} />} />;
 }
