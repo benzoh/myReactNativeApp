@@ -1,29 +1,38 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Snackbar } from 'react-native-paper';
+
+import store from './store';
 import * as UiContext from './contexts/ui';
 import Routes from './routes';
-
-import Home from './components/Home';
-import UserSettingContext, { createInitialContext } from './contexts/user-settings';
-import { loadUserSettings } from '../lib';
+import ErrorPanel from './components/molecules/ErrorPanel';
 
 export default function App() {
-  const [userSettings, setUserSettings] = React.useState(createInitialContext());
   const [applicationState, setApplicationState] = React.useState(UiContext.createApplicationInitialState());
-
-  React.useEffect(() => {
-    async function load() {
-      const userSettings = await loadUserSettings();
-      setUserSettings(JSON.parse(userSettings));
-    }
-    load();
-  });
+  const [error, setError] = React.useState(UiContext.createErrorInitialState());
+  const [snackbar, setSnackbar] = React.useState(UiContext.createSnackbarInitialState());
+  const onDismiss = React.useCallback(() => {
+    setSnackbar(UiContext.createSnackbarInitialState());
+  }, []);
 
   return (
-    <UserSettingContext.Provider value={userSettings}>
-      <Home />
-    </UserSettingContext.Provider>
-    // <UiContext.Context.Provider value={{ applicationState, setApplicationState }}>
-    //   <Routes />
-    // </UiContext.Context.Provider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <UiContext.Context.Provider
+          value={{ error, setError, snackbar, setSnackbar, applicationState, setApplicationState }}
+        >
+          <Routes />
+          <ErrorPanel />
+          <Snackbar
+            visible={snackbar.visible}
+            onDismiss={onDismiss}
+            action={{ label: snackbar.label, onPress: onDismiss }}
+          >
+            {snackbar.msssage}
+          </Snackbar>
+        </UiContext.Context.Provider>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
