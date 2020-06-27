@@ -1,9 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { useControlledComponent } from '../../../lib/hooks';
 import { Button, dismiss, TextField } from '../../atoms';
 import SignInWithGoogle from './SignInWithGoogle';
 import { Context, Status } from '../../../contexts/ui';
+
+import { Status } from '../../../contexts/ui';
+import { UiContext, UserContext } from '../../../contexts';
+import { Todos } from '../../../domain/models';
+import * as TodosRepository from '../../../domain/repositories/todos';
+import { useControlledComponent, useNetworker } from '../../../lib/hooks';
+import * as LocalStore from '../../../lib/local-store';
+import SignInWithPasswordToFirebase from '../../../lib/firebase/signin-with-password';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,10 +34,24 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function SignIn() {
+export default function SignIn(props: Props) {
+  const { setUserState } = React.useContext(UserContext);
   const { setApplicationState } = React.useContext(Context);
+  const networker = useNetworker();
   const mailAddress = useControlledComponent('');
   const password = useControlledComponent('');
+  const { setTodos } = props.actions;
+
+  const signInWithPassword = React.useCallback(async () => {
+    await networker(async () => {
+      const userInformation = await SignInWithPasswordToFirebase(mailAddress.value, password.value);
+      setUserState(userInformation);
+      setApplicationState(Status.AUTHORIZED);
+      await LocalStore.UserInformation.save(userInformation);
+      const todos = await TodosRepository.getAll(userInformation.id);
+      setTodos(todos);
+    });
+  }, [mailAddress.value, password.value, setApplicationState, networker, setUserState, setTodos]);
 
   return (
     <TouchableNativeFeedback onPress={dismiss}>
@@ -52,8 +73,8 @@ export default function SignIn() {
             secureTextEntry={true}
           />
           <View style={styles.buttonContainer}>
-            <SignInWithGoogle />
-            <Button onPress={() => setApplicationState(Status.AUTHORIZED)} style={styles.button} label="SignIn" />
+            <SignInWithGoogle {...props} />
+            <Button onPress={signInWithPassword} style={styles.button} label="SignIn" testID={testIDs.SIGN_IN_EMAIL_BUTTON} />
           </View>
         </View>
       </View>

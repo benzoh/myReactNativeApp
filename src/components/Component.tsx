@@ -15,7 +15,7 @@ export default function Component(props: Props) {
   return (
     <>
       <Text>{props.numofCompleted}</Text>;
-      <FlatList data={completedTodos} renderItem={({ item }) => <Text>{item.title}</Text>} />
+      <FlatList data={props.completedTodos} renderItem={({ item }) => <Text>{item.title}</Text>} />
     </>
   );
 }

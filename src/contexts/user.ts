@@ -1,0 +1,24 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+import React from 'react';
+
+export interface User {
+  id: string;
+  name: string | null;
+  mailAddress: string | null;
+  photoUrl: string | null;
+  createdAt: number | null;
+  lastLoginAt: number | null;
+}
+
+export type UserInformation = User | null;
+
+export function createInitialState(): UserInformation {
+  return null;
+}
+
+export const Context = React.createContext({
+  userState: createInitialState(),
+  // eslint-disable-next-line prettier/prettier
+  setUserState: (_: UserInformation) => { },
+});

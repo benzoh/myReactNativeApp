@@ -10,6 +10,8 @@ import * as UiContext from './contexts/ui';
 import Routes from './routes';
 import ErrorPanel from './components/molecules/ErrorPanel';
 
+import * as UserContext from './contexts/user';
+
 export default function App() {
   const [applicationState, setApplicationState] = React.useState(UiContext.createApplicationInitialState());
   const [error, setError] = React.useState(UiContext.createErrorInitialState());
@@ -21,6 +23,7 @@ export default function App() {
   const onDismiss = React.useCallback(() => {
     setSnackbar(UiContext.createSnackbarInitialState());
   }, []);
+  const [userState, setUserState] = React.useState(UserContext.createInitialState());
 
   return (
     <Provider store={store}>
@@ -29,16 +32,18 @@ export default function App() {
           value={{ error, setError, snackbar, setSnackbar, applicationState, setApplicationState }}
         >
           <NetworkContext.Context.Provider value={{ networkState, dispatchNetworkActions }}>
-            <Routes />
-            <NetworkPanel />
-            <ErrorPanel />
-            <Snackbar
-              visible={snackbar.visible}
-              onDismiss={onDismiss}
-              action={{ label: snackbar.label, onPress: onDismiss }}
-            >
-              {snackbar.msssage}
-            </Snackbar>
+            <UserContext.Context.Provider value={{ userState, setUserState }}>
+              <Routes />
+              <NetworkPanel />
+              <ErrorPanel />
+              <Snackbar
+                visible={snackbar.visible}
+                onDismiss={onDismiss}
+                action={{ label: snackbar.label, onPress: onDismiss }}
+              >
+                {snackbar.msssage}
+              </Snackbar>
+            </UserContext.Context.Provider>
           </NetworkContext.Context.Provider>
         </UiContext.Context.Provider>
       </SafeAreaProvider>
