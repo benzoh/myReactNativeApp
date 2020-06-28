@@ -66,6 +66,7 @@
     "@typescript-eslint/eslint-plugin": "2.31.0",
     "@typescript-eslint/parser": "3.0.0",
     "babel-jest": "24.9.0",
+    "detox": "^17.0.1",
     "eslint": "7.0.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-jest": "23.10.0",
@@ -79,5 +80,33 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "type": "ios.simulator",
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/MyApp.app",
+        "build": "xcodebuild -workspace ios/MyApp.xcworkspace -scheme MyApp -configuration Debug -sdk iphonesimulator -deriveDatePath ios/build",
+        "device": {
+          "type": "iPhone 11"
+        }
+      },
+      "ios.sim.release": {
+        "type": "ios.simulator",
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/MyApp.app",
+        "build": "xcodebuild -workspace ios/MyApp.xcworkspace -scheme MyApp -configuration Release -sdk iphonesimulator -deriveDatePath ios/build",
+        "device": {
+          "type": "iPhone 11"
+        }
+      },
+      "android": {
+        "type": "android.emulator",
+        "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+        "device": {
+          "avdName": "Pixel_2_API_29"
+        }
+      }
+    },
+    "test-runner": "jest"
   }
 }
