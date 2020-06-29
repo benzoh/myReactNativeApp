@@ -20,6 +20,7 @@ interface Props {
   disabled?: boolean;
   disabledColor?: string;
   icon?: string;
+  testID?: string;
 }
 
 export default function Button(props: Props) {
@@ -32,6 +33,7 @@ export default function Button(props: Props) {
     disabled,
     disabledColor = COLOR.MAIN_LIGHT,
     icon,
+    testID,
   } = props;
 
   return (
@@ -45,6 +47,7 @@ export default function Button(props: Props) {
       }}
       icon={icon}
       accessibilityStates={disabled ? ['disabled'] : undefined}
+      testID={testID}
     >
       {label && <Text style={[styles.text, textStyle]}>{label}</Text>}
     </PaperButton>

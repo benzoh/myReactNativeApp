@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Logo } from '../../atoms';
 import { SIGN_IN, SIGN_UP } from '../../../constants/path';
 import { COLOR } from '../../../constants/theme';
+import testIDs from '../../../constants/testIDs';
 
 const padding = 20;
 const styles = StyleSheet.create({
@@ -37,7 +38,7 @@ export default function ChooseLogin() {
       <View style={styles.imageContainer}>
         <Logo />
       </View>
-      <View style={styles.contentContainer}>
+      <View style={styles.contentContainer} testID={testIDs.CHOOSE_LOGIN}>
         <Button onPress={() => navigate(SIGN_IN)} style={styles.button} label="Sign in" />
         <Button onPress={() => navigate(SIGN_UP)} style={styles.button} label="Sign up" />
       </View>

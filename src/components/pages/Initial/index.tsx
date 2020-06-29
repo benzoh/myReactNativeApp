@@ -6,6 +6,7 @@ import { Carousel } from '../../organisms';
 import { Pagination } from '../../atoms';
 import { COLOR } from '../../../constants/theme';
 import { Context, Status } from '../../../contexts/ui';
+import testIDs from '../../../constants/testIDs';
 
 const padding = 20;
 const styles = StyleSheet.create({
@@ -25,12 +26,15 @@ interface Data {
 const renderData = [
   {
     text: 'Hello React Native world.\nWelcome to the JS world.\nThis application is made from React Native.',
+    testID: testIDs.INITIAL_NEXT_BUTTON1,
   },
   {
     text: 'If you use this application,\nyou could manage your task.\n\nSo, please register and manage your task',
+    testID: testIDs.INITIAL_NEXT_BUTTON2,
   },
   {
     text: 'In the first, you have to register your account.\n\nPlease, tell me your email.',
+    testID: testIDs.INITIAL_NEXT_BUTTON3,
   },
 ];
 
@@ -57,7 +61,7 @@ export default function Initial() {
   }, [activeSlide]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} testID={testIDs.INITIAL}>
       <Carousel data={renderData} onEnd={onEnd} onNext={onNext} carouselRef={carouselRef} onSnapToItem={changeSlide} />
       <Pagination length={renderData.length} index={activeSlide} />
     </SafeAreaView>
