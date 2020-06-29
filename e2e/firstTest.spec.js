@@ -1,19 +1,13 @@
-describe('Example', () => {
-  beforeEach(async () => {
-    await device.reloadReactNative();
+describe('All', () => {
+  afterAll(async () => {
+    await device.resetContentAndSettings().then(() => console.info('Reset iOS settings.'));
   });
 
-  it('should have welcome screen', async () => {
-    await expect(element(by.id('welcome'))).toBeVisible();
+  beforeAll(async () => {
+    await device.launchApp();
   });
 
-  it('should show hello screen after tap', async () => {
-    await element(by.id('hello_button')).tap();
-    await expect(element(by.text('Hello!!!'))).toBeVisible();
-  });
-
-  it('should show world screen after tap', async () => {
-    await element(by.id('world_button')).tap();
-    await expect(element(by.text('World!!!'))).toBeVisible();
+  describe('Go to ChooseLogin', () => {
+    //
   });
 });
