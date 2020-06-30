@@ -9,7 +9,7 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   carouselRef: any;
   onSnapToItem: (slide: number) => void;
-  data: { text: string }[];
+  data: { text: string; testID: string }[];
 }
 
 export default function Carousel(props: Props) {

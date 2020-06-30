@@ -6,6 +6,7 @@ import { Carousel } from '../../organisms';
 import { Pagination } from '../../atoms';
 import { COLOR } from '../../../constants/theme';
 import { Context, Status } from '../../../contexts/ui';
+import * as LocalStore from '../../../lib/local-store';
 import testIDs from '../../../constants/testIDs';
 
 const padding = 20;
@@ -44,7 +45,9 @@ export default function Initial() {
 
   const carouselRef = useRef(null);
   const onEnd = useCallback(() => {
-    setApplicationState(Status.UN_AUTHORIZED);
+    LocalStore.InitialLaunch.markAsTutorialIsDone().finally(() => {
+      setApplicationState(Status.UN_AUTHORIZED);
+    });
   }, [setApplicationState]);
 
   const onNext = useCallback(() => {

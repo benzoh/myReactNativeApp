@@ -16,6 +16,7 @@ describe('All', () => {
       await expect(element(by.id(testIDs.INITIAL_NEXT_BUTTON1))).toBeVisible();
     });
 
+    // eslint-disable-next-line jest/expect-expect
     it('カルーセル２ページめを表示', async () => {
       // ボタンを押す操作をtap()で実行
       await element(by.id(testIDs.INITIAL_NEXT_BUTTON1)).tap();
@@ -37,7 +38,7 @@ describe('All', () => {
 
       // toBeNotVisible()は画面に表示されないことを確認する
       await expect(element(by.id(testIDs.INITIAL))).toBeNotVisible();
-      await expect(element(by.id(testIDs.CHOOSE_LOGIN))).toBeNotVisible();
+      await expect(element(by.id(testIDs.CHOOSE_LOGIN))).toBeVisible();
     });
   });
 });

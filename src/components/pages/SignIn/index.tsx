@@ -3,8 +3,6 @@ import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { Button, dismiss, TextField } from '../../atoms';
 import SignInWithGoogle from './SignInWithGoogle';
 import { Context, Status } from '../../../contexts/ui';
-
-import { Status } from '../../../contexts/ui';
 import { UiContext, UserContext } from '../../../contexts';
 import { Todos } from '../../../domain/models';
 import * as TodosRepository from '../../../domain/repositories/todos';
