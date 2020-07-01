@@ -41,4 +41,14 @@ describe('All', () => {
       await expect(element(by.id(testIDs.CHOOSE_LOGIN))).toBeVisible();
     });
   });
+
+  describe('Go to Home', () => {
+    it('SignUpページが表示される', async () => {
+      await expect(element(by.id(testIDs.CHOOSE_LOGIN))).toBeVisible();
+      await element(by.id(testIDs.SIGN_UP_BUTTON)).tap();
+      await expect(element(by.id(testIDs.SIGN_UP))).toBeVisible();
+      await expect(element(by.id(testIDs.SIGN_UP_EMAIL))).toBeVisible();
+      await expect(element(by.id(testIDs.SIGN_UP_PASSWORD))).toBeVisible();
+    });
+  });
 });

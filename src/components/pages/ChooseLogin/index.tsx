@@ -40,7 +40,12 @@ export default function ChooseLogin() {
       </View>
       <View style={styles.contentContainer} testID={testIDs.CHOOSE_LOGIN}>
         <Button onPress={() => navigate(SIGN_IN)} style={styles.button} label="Sign in" />
-        <Button onPress={() => navigate(SIGN_UP)} style={styles.button} label="Sign up" />
+        <Button
+          onPress={() => navigate(SIGN_UP)}
+          style={styles.button}
+          label="Sign up"
+          testID={testIDs.SIGN_UP_BUTTON}
+        />
       </View>
     </View>
   );

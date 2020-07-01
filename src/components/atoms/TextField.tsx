@@ -26,6 +26,7 @@ interface Props {
   | 'cc-exp-year';
   secureTextEntry?: boolean;
   disabled?: boolean;
+  testID?: string;
 }
 
 const theme = {
@@ -39,7 +40,7 @@ const theme = {
 };
 
 export default function TextField(props: Props) {
-  const { label, value, onChangeText = () => { }, style, autoCompleteType, secureTextEntry, disabled } = props;
+  const { label, value, onChangeText = () => { }, style, autoCompleteType, secureTextEntry, disabled, testID } = props;
 
   return (
     <TextInput
@@ -54,6 +55,7 @@ export default function TextField(props: Props) {
       autoCapitalize="none"
       secureTextEntry={secureTextEntry}
       accessibilityStates={disabled ? ['disabled'] : undefined}
+      testID={testID}
     />
   );
 }
