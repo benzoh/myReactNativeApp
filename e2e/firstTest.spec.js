@@ -46,6 +46,15 @@ describe('All', () => {
   });
 
   describe('Go to Home', () => {
+    let email;
+    let password;
+
+    beforeAll(() => {
+      const random = new Date().getTime();
+      email = `e2e+from_detox_${random}@example.com`;
+      password = 'password';
+    });
+
     it('SignUpページが表示される', async () => {
       await expect(element(by.id(testIDs.CHOOSE_LOGIN))).toBeVisible();
       await element(by.id(testIDs.SIGN_UP_BUTTON)).tap();
@@ -60,6 +69,18 @@ describe('All', () => {
       await expect(element(by.id(testIDs.SIGN_IN))).toBeVisible();
       await expect(element(by.id(testIDs.SIGN_IN_EMAIL))).toBeVisible();
       await expect(element(by.id(testIDs.SIGN_IN_PASSWORD))).toBeVisible();
+    });
+
+    it('アカウントを登録できる', async () => {
+      await pressBack();
+      await element(by.id(testIDs.SIGN_UP_BUTTON)).tap();
+
+      // typeText()を使ってTextInputにテキストを入力する
+      await element(by.id(testIDs.SIGN_UP_EMAIL)).typeText(email);
+      await element(by.id(testIDs.SIGN_UP_PASSWORD)).typeText(password);
+      await element(by.id(testIDs.SIGN_UP_REGISTER_BUTTON)).tap();
+
+      await expect(element(by.id(testIDs.HOME))).toBeVisible();
     });
   });
 });
