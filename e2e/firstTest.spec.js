@@ -82,5 +82,14 @@ describe('All', () => {
 
       await expect(element(by.id(testIDs.HOME))).toBeVisible();
     });
+
+    it('サインアウトできる', async () => {
+      await element(by.id(testIDs.MENU_HEADER_LEFT_BUTTON)).tap();
+      await element(by.label('USER_INFO')).tap();
+      await expect(element(by.id(testIDs.USER_INFO_SCREEN))).toBeVisible();
+
+      await element(by.id(testIDs.USER_INFO_SIGN_OUT_BUTTON)).tap();
+      await expect(element(by.id(testIDs.CHOOSE_LOGIN))).toBeVisible();
+    });
   });
 });

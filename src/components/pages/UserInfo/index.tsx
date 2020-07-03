@@ -4,6 +4,8 @@ import { COLOR } from '../../../constants/theme';
 import { Context as UiContext, Status } from '../../../contexts/ui';
 import { Button, Avatar, LabelValueContainer } from '../../atoms';
 import formatDate from '../../../lib/format-date';
+import testIDs from '../../../constants/testIDs';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,8 +44,8 @@ export default function Statistics() {
   const source = React.useMemo(() => require('../../../../assets/person.png'), []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageIconContainer}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.imageIconContainer} testID={testIDs.USER_INFO_SCREEN}>
         <Avatar source={source} />
         <Text style={styles.nameText}>{userState.name}</Text>
       </View>
@@ -52,7 +54,7 @@ export default function Statistics() {
         label="registerdAt"
         value={userState.createdAt && formatDate(new Date(userState.createdAt))}
       />
-      <Button style={styles.button} onPress={signOut} label="Sign Out" />
-    </View>
+      <Button style={styles.button} onPress={signOut} label="Sign Out" testID={testIDs.USER_INFO_SIGN_OUT_BUTTON} />
+    </SafeAreaView>
   );
 }
