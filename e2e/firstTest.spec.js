@@ -1,7 +1,11 @@
+/* eslint-disable no-undef */
+
 import testIDs from '../src/constants/testIDs';
+import { pressBack } from './lib/utils';
 
 describe('All', () => {
   afterAll(async () => {
+    // eslint-disable-next-line no-console
     await device.resetContentAndSettings().then(() => console.info('Reset iOS settings.'));
   });
 
@@ -16,7 +20,6 @@ describe('All', () => {
       await expect(element(by.id(testIDs.INITIAL_NEXT_BUTTON1))).toBeVisible();
     });
 
-    // eslint-disable-next-line jest/expect-expect
     it('カルーセル２ページめを表示', async () => {
       // ボタンを押す操作をtap()で実行
       await element(by.id(testIDs.INITIAL_NEXT_BUTTON1)).tap();
@@ -49,6 +52,14 @@ describe('All', () => {
       await expect(element(by.id(testIDs.SIGN_UP))).toBeVisible();
       await expect(element(by.id(testIDs.SIGN_UP_EMAIL))).toBeVisible();
       await expect(element(by.id(testIDs.SIGN_UP_PASSWORD))).toBeVisible();
+    });
+
+    it('SignInページが表示される', async () => {
+      await pressBack();
+      await element(by.id(testIDs.SIGN_IN_BUTTON)).tap();
+      await expect(element(by.id(testIDs.SIGN_IN))).toBeVisible();
+      await expect(element(by.id(testIDs.SIGN_IN_EMAIL))).toBeVisible();
+      await expect(element(by.id(testIDs.SIGN_IN_PASSWORD))).toBeVisible();
     });
   });
 });
