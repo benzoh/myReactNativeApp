@@ -102,5 +102,17 @@ describe('All', () => {
 
       await expect(element(by.id(testIDs.HOME))).toBeVisible();
     });
+
+    it('todoを追加できる', async () => {
+      await element(by.id(testIDs.TODO_OPEN_INPUT_BUTTON)).tap();
+
+      await element(by.id(testIDs.TODO_INPUT_TITLE)).typeText('買い物');
+      await element(by.id(testIDs.TODO_INPUT_DETAIL)).typeText('牛乳を買う\n');
+      await element(by.id(testIDs.TODO_INPUT_ADD_BUTTON)).tap();
+      await expect(element(by.id(testIDs.HOME))).toBeVisible();
+
+      await expect(element(by.label('買い物'))).toBeVisible();
+      await expect(element(by.label('牛乳を買う'))).toBeVisible();
+    });
   });
 });

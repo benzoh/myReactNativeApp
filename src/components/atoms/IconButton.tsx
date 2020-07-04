@@ -21,6 +21,7 @@ interface Props {
   iconColor?: string;
   size?: number;
   disabled?: boolean;
+  testID?: string;
 }
 
 export default function IconButton(props: Props) {
