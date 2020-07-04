@@ -91,5 +91,16 @@ describe('All', () => {
       await element(by.id(testIDs.USER_INFO_SIGN_OUT_BUTTON)).tap();
       await expect(element(by.id(testIDs.CHOOSE_LOGIN))).toBeVisible();
     });
+
+    it('サインインできる', async () => {
+      await element(by.id(testIDs.SIGN_IN_BUTTON)).tap();
+      await expect(element(by.id(testIDs.SIGN_IN))).toBeVisible();
+
+      await element(by.id(testIDs.SIGN_IN_EMAIL)).typeText(email);
+      await element(by.id(testIDs.SIGN_IN_PASSWORD)).typeText(password);
+      await element(by.id(testIDs.SIGN_IN_EMAIL_BUTTON)).tap();
+
+      await expect(element(by.id(testIDs.HOME))).toBeVisible();
+    });
   });
 });
