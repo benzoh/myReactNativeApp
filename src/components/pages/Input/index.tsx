@@ -8,7 +8,9 @@ import Button from '../../atoms/Button';
 import { COLOR } from '../../../constants/theme';
 import testIDs from '../../../constants/testIDs';
 import { Todo } from '../../../domain/models';
-import { useControlledComponent } from '../../../lib/hooks';
+import { useControlledComponent, useNetworker } from '../../../lib/hooks';
+import { UiContext, UserContext } from '../../../contexts';
+import * as TodosRepository from '../../../domain/repositories/todos';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,6 +42,8 @@ interface Props {
 }
 
 export default function Input(props: Props) {
+  const { userState } = React.useContext(UserContext);
+  const { setError } = React.useContext(UiContext);
   const title = useControlledComponent('');
   const detail = useControlledComponent('');
 
@@ -49,14 +53,23 @@ export default function Input(props: Props) {
   }, [goBack]);
 
   const addTodo = React.useCallback(() => {
-    props.actions.addTodo({
-      title: title.value,
-      detail: detail.value,
-    });
+    const newValues = { title: title.value, detail: detail.value };
+    const newTodo = Todo.factory(newValues);
+
+    try {
+      if (!userState) {
+        return;
+      }
+
+      TodosRepository.add(userState.id, newTodo);
+    } catch (e) {
+      setError(e);
+    }
+
     back();
     title.onChangeText('');
     detail.onChangeText('');
-  }, [back, title, detail, props.actions]);
+  }, [title, detail, back, userState, setError]);
 
   return (
     <SafeAreaView style={styles.container}>
