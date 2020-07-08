@@ -24,6 +24,7 @@ const forFade = ({ current }: StackCardInterpolationProps) => ({
     opacity: current.progress,
   },
 });
+
 const cardStyle = {
   backgroundColor: COLOR.MAIN,
 };

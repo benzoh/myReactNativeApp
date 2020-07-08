@@ -51,6 +51,7 @@ function useUserInformation(setTodos: SetTodo) {
 
         TodosRepository.getAll(user.uid)
           .then(todos => {
+            console.log({ todos });
             setTodos(todos);
             setApplicationState(Status.AUTHORIZED);
             resolve();

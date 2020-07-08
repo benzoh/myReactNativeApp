@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import analytics from '@react-native-firebase/analytics';
 
 import { COLOR } from '../../../constants/theme';
 import { DETAIL, INPUT } from '../../../constants/path';
@@ -43,6 +44,16 @@ interface Props {
 }
 
 export default function Home(props: Props) {
+  React.useEffect(() => {
+    async function logViewItemList() {
+      await analytics().logViewItemList({
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        item_category: 'todo',
+      });
+    }
+    logViewItemList();
+  }, []);
+
   const { navigate } = useNavigation();
   const onPress = React.useCallback(() => {
     navigate(INPUT);
@@ -61,6 +72,7 @@ export default function Home(props: Props) {
     [gotoDetail, props.actions],
   );
 
+  // FIXME: ここでtodos渡せてない。
   return (
     <View style={styles.container} testID={testIDs.HOME}>
       <Todos isEditable todos={props.todos} actions={actions} />

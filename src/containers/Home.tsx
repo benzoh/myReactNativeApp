@@ -8,6 +8,8 @@ import { UserContext } from '../contexts';
 
 export default function ConnectedHome() {
   const todos = useSelector(getTodos);
+  console.log({ Todos });
+
   const { userState } = React.useContext(UserContext);
 
   const dispatch = useDispatch();
@@ -30,5 +32,8 @@ export default function ConnectedHome() {
     return null;
   }
 
+  console.log({ Todos });
+
+  // FIXME: ここで渡すはず
   return <Home todos={todos} actions={actions} />;
 }
