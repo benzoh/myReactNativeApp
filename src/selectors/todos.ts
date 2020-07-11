@@ -12,6 +12,7 @@ export const getArray = createSelector([selectTodos], todos =>
   Object.values(todos).map(todo => ({
     id: todo.id,
     title: todo.title,
+    detail: todo.detail,
     isDone: Domain.Todo.isDone(todo),
     createdAt: new Date(todo.createdAt).getTime(),
     updatedAt: new Date(todo.updatedAt).getTime(),
