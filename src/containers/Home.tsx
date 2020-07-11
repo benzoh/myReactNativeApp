@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getTodos } from '../selectors/todos';
-import * as Todos from '../modules/todos';
+import * as Todos from '../usecases/todos';
 import { Home } from '../components/pages';
 import { UserContext } from '../contexts';
 
@@ -25,7 +25,7 @@ export default function ConnectedHome() {
           },
         }
         : null,
-    [userState, userState?.id, dispatch],
+    [userState, dispatch],
   );
 
   if (!actions) {

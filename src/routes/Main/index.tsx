@@ -4,8 +4,8 @@ import { createStackNavigator, StackCardInterpolationProps } from '@react-naviga
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { INITIAL, LOADING, HOME, CHOOSE_LOGIN, STATISTICS, USER_INFO, INPUT, SIGN_IN, SIGN_UP } from '../../constants/path';
-import { Initial, ChooseLogin, Input, SignUp } from '../../components/pages';
-import { Loading, SignIn } from '../../containers';
+import { Initial, ChooseLogin, SignUp } from '../../components/pages';
+import { Loading, SignIn, Input } from '../../containers';
 import Home from './Home';
 import Statistics from './Statistics';
 import UserInfo from './UserInfo';

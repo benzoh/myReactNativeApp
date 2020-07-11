@@ -83,6 +83,7 @@ function useUserInformation(setTodos: SetTodo) {
 }
 
 export default function Loading(props: Props) {
+  console.log('hoge!!');
   const { setTodos } = props.actions;
   const retrieveUserInformation = useUserInformation(setTodos);
 

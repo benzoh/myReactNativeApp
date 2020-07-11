@@ -42,8 +42,6 @@ interface Props {
 }
 
 export default function Input(props: Props) {
-  const { userState } = React.useContext(UserContext);
-  const { setError } = React.useContext(UiContext);
   const title = useControlledComponent('');
   const detail = useControlledComponent('');
 
@@ -53,23 +51,14 @@ export default function Input(props: Props) {
   }, [goBack]);
 
   const addTodo = React.useCallback(() => {
-    const newValues = { title: title.value, detail: detail.value };
-    const newTodo = Todo.factory(newValues);
-
-    try {
-      if (!userState) {
-        return;
-      }
-
-      TodosRepository.add(userState.id, newTodo);
-    } catch (e) {
-      setError(e);
-    }
-
+    props.actions.addTodo({
+      title: title.value,
+      detail: detail.value,
+    });
     back();
     title.onChangeText('');
     detail.onChangeText('');
-  }, [title, detail, back, userState, setError]);
+  }, [back, title, detail, props.actions]);
 
   return (
     <SafeAreaView style={styles.container}>
