@@ -114,5 +114,15 @@ describe('All', () => {
       await expect(element(by.label('買い物'))).toBeVisible();
       await expect(element(by.label('牛乳を買う'))).toBeVisible();
     });
+
+    it('todoを完了できる', async () => {
+      await expect(element(by.id(testIDs.TODO_ROW_DONE))).toBeNotVisible();
+      await element(by.label('買い物')).swipe('right');
+      await expect(element(by.id(testIDs.TODO_ROW_DONE))).toBeVisible();
+      await element(by.id(testIDs.TODO_ROW_DONE)).tap();
+
+      await element(by.label('買い物')).swipe('right');
+      await expect(element(by.id(testIDs.TODO_ROW_NOT_DONE))).toBeVisible();
+    });
   });
 });

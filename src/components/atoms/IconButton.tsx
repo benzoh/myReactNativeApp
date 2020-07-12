@@ -2,6 +2,7 @@ import React from 'react';
 import { IconButton as PaperIconButton } from 'react-native-paper';
 import { StyleSheet, ViewStyle } from 'react-native';
 import { COLOR } from '../../constants/theme';
+import testIDs from '../../constants/testIDs';
 
 const styles = StyleSheet.create({
   button: {
@@ -25,7 +26,7 @@ interface Props {
 }
 
 export default function IconButton(props: Props) {
-  const { icon, onPress, style, iconColor = COLOR.WHITE, size = 18, disabled } = props;
+  const { icon, onPress, testID, style, iconColor = COLOR.WHITE, size = 18, disabled } = props;
 
   return (
     <PaperIconButton
@@ -35,6 +36,7 @@ export default function IconButton(props: Props) {
       style={[styles.button, style]}
       icon={icon}
       accessibilityStates={disabled ? ['disabled'] : undefined}
+      testID={testID}
     />
   );
 }
