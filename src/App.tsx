@@ -41,7 +41,7 @@ export default function App() {
                 onDismiss={onDismiss}
                 action={{ label: snackbar.label, onPress: onDismiss }}
               >
-                {snackbar.msssage}
+                {snackbar.message}
               </Snackbar>
             </UserContext.Context.Provider>
           </NetworkContext.Context.Provider>

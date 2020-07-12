@@ -22,7 +22,7 @@ export function createErrorInitialState(): ErrorState {
 export function createSnackbarInitialState() {
   return {
     visible: false,
-    msssage: '',
+    message: '',
     label: 'Done',
   };
 }
