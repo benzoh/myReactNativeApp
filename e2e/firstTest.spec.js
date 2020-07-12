@@ -124,5 +124,22 @@ describe('All', () => {
       await element(by.label('買い物')).swipe('right');
       await expect(element(by.id(testIDs.TODO_ROW_NOT_DONE))).toBeVisible();
     });
+
+    it('todoを更新できる', async () => {
+      await element(by.label('買い物')).tap();
+      await expect(element(by.id(testIDs.TODO_DETAIL_SCREEN))).toBeVisible();
+      await expect(element(by.id(testIDs.TODO_DETAIL_INPUT_TITLE))).toBeVisible();
+      await expect(element(by.id(testIDs.TODO_DETAIL_INPUT_DETAIL))).toBeVisible();
+
+      await element(by.id(testIDs.TODO_DETAIL_INPUT_TITLE)).replaceText('連絡');
+      await element(by.id(testIDs.TODO_DETAIL_INPUT_DETAIL)).replaceText('太郎にメール');
+      await element(by.id(testIDs.TODO_DETAIL_SUBMIT_BUTTON)).tap();
+
+      await pressBack();
+      await expect(element(by.id(testIDs.HOME))).toBeVisible();
+
+      await expect(element(by.label('連絡'))).toBeVisible();
+      await expect(element(by.label('太郎にメール'))).toBeVisible();
+    });
   });
 });
