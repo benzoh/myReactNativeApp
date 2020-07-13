@@ -141,5 +141,14 @@ describe('All', () => {
       await expect(element(by.label('連絡'))).toBeVisible();
       await expect(element(by.label('太郎にメール'))).toBeVisible();
     });
+
+    it('todoを削除できる', async () => {
+      await expect(element(by.id(testIDs.TODO_ROW_DELETE))).toBeNotVisible();
+      await element(by.label('連絡')).swipe('left');
+      await expect(element(by.id(testIDs.TODO_ROW_DELETE))).toBeVisible();
+      await element(by.id(testIDs.TODO_ROW_DELETE)).tap();
+
+      await expect(element(by.id('連絡'))).toBeNotVisible();
+    });
   });
 });

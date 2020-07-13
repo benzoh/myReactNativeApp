@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+
+import { UiContext } from '../../../contexts';
 import { COLOR } from '../../../constants/theme';
 import IconButton from '../../atoms/IconButton';
+import testIDs from '../../../constants/testIDs';
 
 const styles = StyleSheet.create({
   button: {
@@ -23,14 +26,20 @@ interface Props {
 }
 
 export function Component(props: Props) {
+  const { setError } = React.useContext(UiContext);
+
   const {
     state: { id },
     actions: { removeTodo },
   } = props;
 
   const onPress = React.useCallback(() => {
-    removeTodo(id);
-  }, [id, removeTodo]);
+    try {
+      removeTodo(id);
+    } catch (e) {
+      setError(e);
+    }
+  }, [id, removeTodo, setError]);
 
-  return <IconButton onPress={onPress} icon="delete" style={styles.button} />;
+  return <IconButton onPress={onPress} icon="delete" style={styles.button} testID={testIDs.TODO_ROW_DELETE} />;
 }
