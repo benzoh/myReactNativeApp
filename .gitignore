@@ -60,4 +60,7 @@ buck-out/
 
 coverage
 
+GoogleService-Info.plist
+
 !.keep
+
